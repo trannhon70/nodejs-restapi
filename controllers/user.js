@@ -39,6 +39,9 @@ const getUsers = async (req, res, next) => {
       {
         id: 2, name: 'Nguyễn Văn B'
       },
+      {
+        id: 2, name: 'Nguyễn Văn C'
+      },
     ];
 
     res.status(200).json({
