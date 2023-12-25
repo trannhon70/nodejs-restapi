@@ -4,8 +4,11 @@ const express = require("express");
 const cors = require("cors");
 
 const connectDB = require("./config/db");
-const userRoutes = require("./routes/user.router");
+const userRoutes = require("./routers/user.router");
 const errorHandler = require("./middlewares/error");
+const roleRouter = require("./routers/role.router")
+const productRouter = require("./routers/product.router")
+const brandRouter = require("./routers/brand.router");
 
 // Express App
 const app = express();
@@ -32,6 +35,10 @@ app.use(express.json());
 
 // Routes
 app.use("/api/user", userRoutes);
+app.use("/api/role", roleRouter);
+app.use("/api/product", productRouter);
+app.use("/api/brand", brandRouter);
+
 
 app.use("/", (req, res) => {
   return res.json({
