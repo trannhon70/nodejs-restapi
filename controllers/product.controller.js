@@ -60,6 +60,7 @@ const updateProduct = async (req, res, next) => {
       var listImage = [];
       if (req.files?.file) {
         let file = req.files?.file;
+        console.log(file,'file');
         if (file.length > 0) {
           file?.map((item, index) => {
             const newName = `${timestamp}_${item.name}`;

@@ -2,6 +2,10 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const path = require ('path');
 
 const connectDB = require("./config/db");
 const userRoutes = require("./routers/user.router");
@@ -32,6 +36,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(fileUpload());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, `uploads`)))
 
 // Routes
 app.use("/api/user", userRoutes);
