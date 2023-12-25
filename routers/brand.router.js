@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const authorize = require("../middleware/authorize");
+const authorize = require("../middlewares/authorize");
 const {createBrand, updateBrand, deleteBrand,getpagingBrand,getBrandById, getAllBrand} = require("../controllers/brand.controller")
 
 router.post("/create", authorize(), createBrand);
