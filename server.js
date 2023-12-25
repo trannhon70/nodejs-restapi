@@ -31,7 +31,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 app.use("/", (req, res) => {
   return res.json({
