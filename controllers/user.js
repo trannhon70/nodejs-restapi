@@ -32,7 +32,14 @@ const createUser = async (req, res, next) => {
 
 const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users =[
+      {
+        id: 1, name: 'Nguyễn Văn A'
+      },
+      {
+        id: 2, name: 'Nguyễn Văn B'
+      },
+    ];
 
     res.status(200).json({
       success: true,
