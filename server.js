@@ -23,7 +23,7 @@ const corsOptions = {
   ],
   credentials: true,
   methods: "GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE",
-  origin: [`${process.env.ADMIN_DEV_URL}`],
+  origin: [`${process.env.ADMIN_DEV_URL}`, `${process.env.ADMIN_LOCAL_URL}`],
   preflightContinue: false,
 };
 
