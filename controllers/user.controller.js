@@ -238,8 +238,8 @@ const createUser = async (req, res , next) => {
     const result = await userModel.create(body,(err, user)=> {
       if (!err) {
         bcrypt.hash(req.body.email, 10).then((hashedEmail) => {
-            console.log(`${process.env.CLIENT_DEV_URL}/verify?email=${user.email}&token=${hashedEmail}`);
-            mailer.sendMail(user.email, "Mail xác thực tài khoản của bạn", `<a href="${process.env.CLIENT_DEV_URL}/xac-thuc-tai-khoan?email=${user.email}&token=${hashedEmail}">Vui lòng click vào link này để xác thực tài khoản của bạn! </a>`)
+            console.log(`${process.env.ADMIN_DEV_URL}/verify?email=${user.email}&token=${hashedEmail}`);
+            mailer.sendMail(user.email, "Mail xác thực tài khoản của bạn", `<a href="${process.env.ADMIN_DEV_URL}/xac-thuc-tai-khoan?email=${user.email}&token=${hashedEmail}">Vui lòng click vào link này để xác thực tài khoản của bạn! </a>`)
         });
         
     }
