@@ -56,14 +56,18 @@ app.use("/", (req, res) => {
 });
 
 app.use(errorHandler);
+app.listen(port, ()=> {
+  console.log(`Server is running on port ${port}`);
+})
 
 const startServer = () => {
   try {
     // Connect to DB
     connectDB();
 
+
     // Start & Listen to the requests
-    app.listen(port, () => console.log(`Server started listening on ${port}`));
+    // app.listen(port, () => console.log(`Server started listening on ${port}`));
   } catch (error) {
     console.log(error);
   }

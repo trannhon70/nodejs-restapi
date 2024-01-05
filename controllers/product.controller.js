@@ -1,29 +1,34 @@
 const productModel = require("../models/product.model");
 const path = require("path");
+const uploadImage = require("../config/uploadImage.js");
 
 const createProduct = async (req, res, next) => {
   try {
     const name = req.body.name;
-    const timestamp = Date.now();
     const check = await productModel.findOne({ name });
     if (!check) {
       var listImage = [];
-      if (req.files?.file) {
-        let file = req.files?.file;
-        if (file.length > 0) {
-          file?.map((item, index) => {
-            const newName = `${timestamp}_${item.name}`;
-            listImage.push(newName);
-            item?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
-              console.log(err);
-            });
-          });
-        } else {
-          const newName = `${timestamp}_${file.name}`;
-          listImage.push(newName);
-          file?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
-            console.log(err);
-          });
+      if (req.body.file) {
+        let file =req.body.file;
+
+        if (Array.isArray(file) && file.every(item => typeof item === 'string')) {
+         await uploadImage.uploadMultipleImages(file)
+          .then((url) =>listImage= url)
+          .catch((err) => console.log(err,'err'));
+          // file?.map((item, index) => {
+          //   const newName = `${timestamp}_${item.name}`;
+          //   item?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
+          //     console.log(err);
+          //   });
+          // });
+        } else if( typeof file === 'string' ) {
+          await uploadImage(file)
+          .then((url) => listImage.push(url))
+          .catch((err) => console.log(err,'err'));
+          // const newName = `${timestamp}_${file.name}`;
+          // file?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
+          //   console.log(err);
+          // });
         }
       }
       const body = {
@@ -61,21 +66,21 @@ const updateProduct = async (req, res, next) => {
       if (req.files?.file) {
         let file = req.files?.file;
         console.log(file,'file');
-        if (file.length > 0) {
-          file?.map((item, index) => {
-            const newName = `${timestamp}_${item.name}`;
-            listImage.push(newName);
-            item?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
-              console.log(err);
-            });
-          });
-        } else {
-          const newName = `${timestamp}_${file.name}`;
-          listImage.push(newName);
-          file?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
-            console.log(err);
-          });
-        }
+        // if (file.length > 0) {
+        //   file?.map((item, index) => {
+        //     const newName = `${timestamp}_${item.name}`;
+        //     listImage.push(newName);
+        //     item?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
+        //       console.log(err);
+        //     });
+        //   });
+        // } else {
+        //   const newName = `${timestamp}_${file.name}`;
+        //   listImage.push(newName);
+        //   file?.mv(path.join(__dirname, `../uploads/${newName}`), (err) => {
+        //     console.log(err);
+        //   });
+        // }
       }
       const body = {
         name: req.body.name,
