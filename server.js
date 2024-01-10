@@ -13,10 +13,11 @@ const errorHandler = require("./middlewares/error");
 const roleRouter = require("./routers/role.router")
 const productRouter = require("./routers/product.router")
 const brandRouter = require("./routers/brand.router");
+const portRouter = require("./routers/portfolio.router");
 
 // Express App
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 // middlewares
 const corsOptions = {
@@ -47,7 +48,9 @@ app.use("/api/user", userRoutes);
 app.use("/api/role", roleRouter);
 app.use("/api/product", productRouter);
 app.use("/api/brand", brandRouter);
+app.use("/api/portfolio", portRouter);
 
+// console.log(brandRouter,'portRouter');
 
 app.use("/", (req, res) => {
   return res.json({
