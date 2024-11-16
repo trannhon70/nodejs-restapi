@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const roleModel = require("../models/role.model");
 const userModel = require("../models/user.model");
 mongoose.set("strictQuery", false);
+const bcrypt = require("bcrypt");
 
 function initial(){
   userModel.estimatedDocumentCount((err, count)=>{
@@ -9,7 +10,7 @@ function initial(){
           new userModel({
               username:"admin",
               password: bcrypt.hashSync("123123",10),
-              name: "Trần Xuân Nhơn",
+              name: "Trần Văn Admin",
               role: "6568b01ec7741ba79aa6fcab",
               emailVeryfied: true
           }).save((err)=>{
